@@ -4,16 +4,14 @@ import axios from "axios";
 import GoogleLogo from "./assets/Google.svg";
 
 const scopes = [
-  "calendar.readonly",
-  "calendar.events",
-  "userinfo.email",
-  "drive.file",
+    "tasks",
+    "people"
 ]
   .map((s) => `https://www.googleapis.com/auth/${s}`)
   .join("%20");
 
 createConfigObserver({
-  title: toConfig("google"),
+  title: toConfig(`${process.env.ID}`),
   config: {
     tabs: [
       {
@@ -26,11 +24,11 @@ createConfigObserver({
               service: "google",
               getPopoutUrl: () =>
                 Promise.resolve(
-                  `https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=https://roamjs.com/oauth?auth=true&response_type=code&scope=${scopes}`
+                  `https://accounts.google.com/o/oauth2/v2/auth?prompt=consent&access_type=offline&client_id=${process.env.GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URL}auth=true&response_type=code&scope=${scopes}`
                 ),
               getAuthData: (data: string) =>
                 axios
-                  .post(`${process.env.API_URL}/google-auth`, {
+                  .post(`${process.env.API_URL}/${process.env.GOOGLE_AUTH_ROUTE}`, {
                     ...JSON.parse(data),
                     grant_type: "authorization_code",
                   })
