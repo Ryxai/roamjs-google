@@ -11,7 +11,7 @@ const scopes = [
   .join("%20");
 
 createConfigObserver({
-  title: toConfig(`${process.env.ID}`),
+  title: toConfig(`roam/ryxai/google`),
   config: {
     tabs: [
       {
