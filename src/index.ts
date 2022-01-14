@@ -1,4 +1,3 @@
-import { toConfig } from "roam-client";
 import { createConfigObserver } from "roamjs-components";
 import axios from "axios";
 import GoogleLogo from "./assets/Google.svg";
@@ -11,7 +10,7 @@ const scopes = [
   .join("%20");
 
 createConfigObserver({
-  title: toConfig(`roam/ryxai/google`),
+  title: `roam/ryxai/google`,
   config: {
     tabs: [
       {
